@@ -1,1 +1,1 @@
-C:\Users\45940\Desktop\RustCourse\Variables\target\debug\Variables.exe: C:\Users\45940\Desktop\RustCourse\Variables\src\main.rs
+C:\Users\WU\Desktop\RustCourse\variables\target\debug\Variables.exe: C:\Users\WU\Desktop\RustCourse\variables\src\main.rs

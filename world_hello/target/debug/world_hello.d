@@ -1,1 +1,1 @@
-C:\Users\45940\Desktop\RustCourse\world_hello\target\debug\world_hello.exe: C:\Users\45940\Desktop\RustCourse\world_hello\src\main.rs
+C:\Users\WU\Desktop\RustCourse\world_hello\target\debug\world_hello.exe: C:\Users\WU\Desktop\RustCourse\world_hello\src\main.rs

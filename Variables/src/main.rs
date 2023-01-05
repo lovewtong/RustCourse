@@ -144,17 +144,125 @@
 
 
 // 5.只允许修改 `assert_eq!` 来让 `println!` 工作(在终端输出 `42`)
+// fn main() {
+//     let x: i32 = 5;
+//     {
+//         let x = 12;
+//         assert_eq!(x, 5);
+//     }
+
+//     assert_eq!(x, 12);
+
+//     let x = 42;
+//     println!("{}", x); // 输出 "42".
+// }
+
+// 使其相等
+// fn main() {
+//     let x: i32 = 5;
+//     {
+//         let x = 12;
+//         assert_eq!(5, 5);
+//     }
+
+//     assert_eq!(12, 12);
+
+//     let x = 42;
+//     println!("{}", x); // 输出 "42".
+// }
+
+// 6.删除一行代码以通过编译
+// fn main() {
+//     let mut x: i32 = 1;
+//     x = 7;
+//     // 遮蔽且再次绑定
+//     let x = x; 
+//     x += 3;
+
+//     let y = 4;
+//     // 遮蔽
+//     let y = "I can also be bound to text!"; 
+// }
+
+
+// 遮蔽过后let x不再是可变的了，是默认不可变的
+// fn main() {
+//     let mut x: i32 = 1;
+//     x = 7;
+//     // 遮蔽且再次绑定
+//     let x = x; 
+
+
+//     let y = 4;
+//     // 遮蔽
+//     let y = "I can also be bound to text!"; 
+// }
+
+
+// 7.使用以下方法来修复编译器输出的 warning
+// fn main() {
+//     let x = 1; 
+// }
+
+// compiler warning: unused variable: `x`
+
+// 给let x声明是未使用的变量
+// fn main() {
+//     let _x = 1; 
+// }
+
+// 打印输出
+// fn main() {
+//     let x = 1; 
+//     println!("x is {}", x)
+// }
+
+
+// 8.修复下面代码的错误并尽可能少的修改
+// fn main() {
+//     let (x, y) = (1, 2);
+//     x += 2;
+
+//     assert_eq!(x, 3);
+//     assert_eq!(y, 2);
+// }
+
+// 将let x视为可变的变量
+// fn main() {
+//     let (mut x, y) = (1, 2);
+//     x += 2;
+
+//     assert_eq!(x, 3);
+//     assert_eq!(y, 2);
+// }
+
+
+// 遮蔽
+// fn main() {
+//     let (_x, y) = (1, 2);
+//     let x = 1+2;
+
+//     assert_eq!(x, 3);
+//     assert_eq!(y, 2);
+// }
+
+// 9.解构式赋值
+
+
+// fn main() {
+//     let (x, y);
+//     (x,..) = (3, 4);
+//     [.., y] = [1, 2];
+//     // 填空，让代码工作
+//     assert_eq!([x,y], __);
+// } 
+
+//填值
 fn main() {
-    let x: i32 = 5;
-    {
-        let x = 12;
-        assert_eq!(x, 5);
-    }
-
-    assert_eq!(x, 12);
-
-    let x = 42;
-    println!("{}", x); // 输出 "42".
-}
-
+    let (x, y);
+    (x,..) = (3, 4);
+    [.., y] = [1, 2];
+    // 填空，让代码工作
+    assert_eq!([x,y], [3,2]);
+} 
 
