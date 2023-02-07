@@ -23,6 +23,6 @@ fn main() {
     let b = a.wrapping_add(20);
     println!("{}", b);  // 19
 
-    let c = a.checked_add(20);
-    println!("{}", c);
+    let _c = a.checked_add(20);
+    println!("{}", b);
 }
