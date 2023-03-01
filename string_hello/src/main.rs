@@ -9,34 +9,33 @@
 // }
 // 以上错误的原因是greet这个方法，调用的name类型是String，但是my_name的类型默认的是&str
 
-#![allow(unused)]
-
+// #![allow(unused)]
 
 fn main() {
 
     let s = String::from("hello world");
-    let len = s.len();
+    let _len = s.len();
     //以下两个表达的都是一样的，第一个是切片，第二个是range序列使用
     let hello = &s[0..5];
-    let hello2 = &s[..5];
+    let _hello2 = &s[..5];
     
     let world = &s[6..11];
 
     //想要String的最后一个字节
     let len = s.len();
-    let slice = &s[4..len];
-    let slice: &str = &s[4..];
+    let _slice = &s[4..len];
+    let _slice: &str = &s[4..];
     
     //中文要注意，一个中文占位3个字节
     let chinese = String::from("你好我是汉字");
     let slice3= &chinese[6..];
     println!("中文字符切片后是,{}",slice3);
     //截取完整的String切片
-    let len = s.len();
+    let _len = s.len();
     println!("第一个字符切片是,{}",hello);
     println!("第二个字符切片是,{}",world);
     
-    let idan = String::from("नमस्ते");
+    let _idan = String::from("नमस्ते");
     // let cutIdan = &idan[4..]; 错误
 
     //追加(Push)
@@ -53,8 +52,8 @@ fn main() {
     println!("插入后的字符{}",str2);
 
     //替换(Replace)替换后返回一个新值
-    str2.replace("Rust", "Java");
-    let new_string_replace = str2.replace("Rust", "RUST");
+    let str3 = str2.replace("Rust", "Java");
+    let new_string_replace = str3.replace("Rust", "RUST");
     println!("替换后的字符{}",new_string_replace);
     //替换(Replacen)替换一个或者几个后返回一个新值
     let string_replacen = "i like rust,learning rust is my favorite!";
@@ -132,6 +131,51 @@ fn main() {
     dbg!(s);
 
     //字符串转义
+    //通过\ + 字符的十六进制表示，转义输出一个字符
+    let byte_escape = "I'm writing \x52\x75\x73\x74!";
+    println!("What are you doing\x3F (\\x3F means ?) {}", byte_escape);
+    // \u 可以输出一个 unicode 字符
+    let unicode_codepoint = "\u{211D}";
+    let character_name = "\"DOUBLE-STRUCK CAPITAL R\"";
+
+    println!(
+        "Unicode character {} (U+211D) is called {}",
+        unicode_codepoint, character_name
+    );
+
+    // 换行了也会保持之前的字符串格式
+    let long_string = "String literals
+                        can span multiple lines.
+                        The linebreak and indentation here ->\
+                        <- can be escaped too!";
+    println!("{}", long_string);
+
+
+    //UTF-8字符串
+    //字符
+    for c in "中国人".chars() {
+        println!("{}",c);
+    }
+
+    //字节
+    for b in "中国人".bytes(){
+        println!("{}",b)
+    }
+
+    //获取子串
+    //想要准确的从 UTF-8 字符串中获取子串是较为复杂的事情，例如想要从 holla中国人नमस्ते 这种变长的字符串中取出某一个子串，使用标准库你是做不到的。
+    //你需要在 crates.io 上搜索 utf8 来寻找想要的功能。可以考虑尝试下这个库：utf8_slice。
+    let s = "holla中国人नमस्ते";
+    
+    //切割字符串
+    let str1 = utf8_slice::slice(s, 0, 5);
+    let str2 = utf8_slice::slice(s, 5, 8);
+    let str3 = utf8_slice::from(s,8);
+
+    println!("str1{}",str1);
+    println!("str2{}",str2);
+    println!("str3{}",str3);
+
     
 }
 
