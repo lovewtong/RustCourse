@@ -10,6 +10,8 @@
 // 以上错误的原因是greet这个方法，调用的name类型是String，但是my_name的类型默认的是&str
 
 #![allow(unused)]
+
+
 fn main() {
 
     let s = String::from("hello world");
@@ -33,5 +35,103 @@ fn main() {
     let len = s.len();
     println!("第一个字符切片是,{}",hello);
     println!("第二个字符切片是,{}",world);
+    
+    let idan = String::from("नमस्ते");
+    // let cutIdan = &idan[4..]; 错误
 
+    //追加(Push)
+    let mut s = String::from("Hello,");
+    s.push_str("rust");
+    println!("追加后的字符{}",s);
+
+    s.push('!');
+    println!("追加后的字符{}",s);
+
+    //插入(Inster)
+    let mut str2 = String::from("HelloRust");
+    str2.insert(5,',');
+    println!("插入后的字符{}",str2);
+
+    //替换(Replace)替换后返回一个新值
+    str2.replace("Rust", "Java");
+    let new_string_replace = str2.replace("Rust", "RUST");
+    println!("替换后的字符{}",new_string_replace);
+    //替换(Replacen)替换一个或者几个后返回一个新值
+    let string_replacen = "i like rust,learning rust is my favorite!";
+    let new_string_replacen = string_replacen.replacen("rust", "java", 1);
+    println!("替换后的字符{}",new_string_replacen);
+    //替换(replace_range)替换范围内后的就返回原来已改变的值
+    let mut string_replace_range = String::from("i like rust!");
+    string_replace_range.replace_range(7..8, "R");
+    println!("替换后的字符{}",string_replace_range);
+
+    //删除(Delete)
+    //pop--删除并返回最后一个字符，直接操作原来的字符
+    let mut string_pop = String::from("rsut pop 中文！");
+    let p1 = string_pop.pop();
+    let p2 = string_pop.pop();
+    dbg!(p1);
+    dbg!(p2);
+    dbg!(string_pop);
+
+    //remove--删除并返回字符串中指定的字符
+    //该方法是直接操作原来的字符串。无返回值。该方法 truncate() 方法是按照字节来处理字符串的，如果参数所给的位置不是合法的字符边界，则会发生错误。
+    let mut string_remove = String::from("测试remove方法");
+    println!(
+        "看看string_remove占 {} 个字节",
+        std::mem::size_of_val(string_remove.as_str())
+    );
+    //删除第一个汉字
+    string_remove.remove(0);
+    // 下面代码会发生错误
+    // string_remove.remove(1);
+    // 直接删除第二个汉字
+    // string_remove.remove(3);
+    dbg!(string_remove);
+
+    //truncate--删除字符串中从指定位置开始到结尾的全部字符
+    //该方法是直接操作原来的字符串。无返回值。该方法 truncate() 方法是按照字节来处理字符串的，如果参数所给的位置不是合法的字符边界，则会发生错误。
+    let mut string_truncate = String::from("测试truncate方法");
+    string_truncate.truncate(3);
+    dbg!(string_truncate);
+
+    //clear--清空字符串
+    //该方法是直接操作原来的字符串。调用后，删除字符串中的所有字符，相当于 truncate() 方法参数为 0 的时候。
+    let mut string_clear = String::from("测试clear方法");
+    string_clear.clear();
+    dbg!(string_clear);
+
+    //连接 (Concatenate)
+    //1、使用 + 或者 += 连接字符串使用 + 或者 += 连接字符串，要求右边的参数必须为字符串的切片引用（Slice）类型。其实当调用 + 的操作符时，
+    //相当于调用了 std::string 标准库中的 add() 方法，这里 add() 方法的第二个参数是一个引用的类型。因此我们在使用 +， 必须传递切片引用类型。
+    //不能直接传递 String 类型。+ 和 += 都是返回一个新的字符串。所以变量声明可以不需要 mut 关键字修饰。
+    let string_appened = String::from("Hello");
+    let string_rust = String::from("rust");
+    let result = string_appened + &string_rust;
+    let mut result = result + "!";
+    result += "!!!";
+
+    println!(
+        "连接字符串 + -> {}",result
+    );
+
+    let s1 = String::from("hello,");
+    let s2 = String::from("world!");
+    // 在下句中，s1的所有权被转移走了，因此后面不能再使用s1
+    let s3 = s1 + &s2;
+    assert_eq!(s3,"hello,world!");
+    // 下面的语句如果去掉注释，就会报错
+    // println!("{}",s1);
+
+    //format!
+    //format! 这种方式适用于 String 和 &str 。format! 的用法与 print! 的用法类似，详见格式化输出。
+    let s1 = "hello";
+    let s2 = String::from("fromat!");
+    let s = format!("{}{}{}!",s1,",",s2);
+
+    dbg!(s);
+
+    //字符串转义
+    
 }
+
