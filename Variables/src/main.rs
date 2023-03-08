@@ -1,12 +1,31 @@
 // 为什么rust变量要设计成默认情况下是不可变的呢？
 // 1.对于大一点的多线程场景来说，同一个名字的变量可能多处引用，其中一部分代码假定该变量的值永远不变，另外一部分确改变了这个值
 // 2.在有大量对象的场景，没有可变性，性能会非常低下，内存拷贝的成本很高
-// fn main() {
-//     let x = 5;
-//     println!("The value of x is: {}", x);
-//     x = 6;
-//     println!("The value of x is: {}", x);
-// }
+fn main() {
+    // Rust对常量的命名约定是在单词之间使用全大写加下划线
+    // 常量使用const而不是let
+    const _THREE_HOURS_IN_SECONDS: u32 = 60 * 60 * 3;
+
+    let mut x = 5;
+    println!("The value of x is: {}", x);
+    x = 6;
+    println!("The value of x is: {}", x);
+
+    // shadowing隐藏，隐藏可以看作是再次使用let时，就是在使用隐藏
+    // 隐藏可以更换值的类型，但是mut不行
+    let space = "   ";
+    let _space = space.len();
+    // mut无法改变变量的类型
+    // let mutspace = "   ";
+    // let _space = space.len();
+
+    let x = x + 1;
+    {
+        let x = x * 2;
+        println!("The value of x in the inner scope is: {}", x);
+    }
+    println!("The value of x is: {}", x);
+}
 
 // fn main() {
 //     let mut x = 5;
@@ -62,9 +81,6 @@
 // let spaces = spaces.len();
 // }
 
-
-
-
 // test
 
 // 1.修复下面代码的错误并尽可能少的修改
@@ -72,35 +88,31 @@
 // fn main() {
 //     let x: i32; // 未初始化，但被使用
 //     let y: i32; // 未初始化，也未被使用
-//     println!("x is equal to {}", x); 
+//     println!("x is equal to {}", x);
 // }
 
 // 定义x,y。且用_把y变成可忽略的变量
 // fn main() {
 //     let x= 32_i32; // 未初始化，但被使用
 //     let _y= 32_i32; // 未初始化，也未被使用
-//     println!("x is equal to {}", x); 
+//     println!("x is equal to {}", x);
 // }
-
-
 
 // 2.完形填空，让代码编译
 // fn main() {
 //     let __ = 1;
-//     __ += 2; 
-    
-//     println!("x = {}", x); 
+//     __ += 2;
+
+//     println!("x = {}", x);
 // }
 
 // mut将变量设置成可变
 // fn main() {
 //     let mut x = 1;
-//     x += 2; 
-    
-//     println!("x = {}", x); 
+//     x += 2;
+
+//     println!("x = {}", x);
 // }
-
-
 
 // 3.修复下面代码的错误并使用尽可能少的改变
 // fn main() {
@@ -109,7 +121,7 @@
 //         let y: i32 = 5;
 //         println!("x 的值是 {}, y 的值是 {}", x, y);
 //     }
-//     println!("x 的值是 {}, y 的值是 {}", x, y); 
+//     println!("x 的值是 {}, y 的值是 {}", x, y);
 // }
 
 // 重新定义一个y值
@@ -120,12 +132,12 @@
 //         println!("x 的值是 {}, y 的值是 {}", x, y);
 //     }
 //     let y = 32;
-//     println!("x 的值是 {}, y 的值是 {}", x, y); 
+//     println!("x 的值是 {}, y 的值是 {}", x, y);
 // }
 
 // 4.修复错误
 // fn main() {
-//     println!("{}, world", x); 
+//     println!("{}, world", x);
 // }
 
 // fn define_x() {
@@ -134,14 +146,13 @@
 
 // 调用函数输出
 // fn main() {
-//     define_x(); 
+//     define_x();
 // }
 
 // fn define_x() {
 //     let x = "hello";
 //     println!("{}, world", x);
 // }
-
 
 // 5.只允许修改 `assert_eq!` 来让 `println!` 工作(在终端输出 `42`)
 // fn main() {
@@ -176,47 +187,43 @@
 //     let mut x: i32 = 1;
 //     x = 7;
 //     // 遮蔽且再次绑定
-//     let x = x; 
+//     let x = x;
 //     x += 3;
 
 //     let y = 4;
 //     // 遮蔽
-//     let y = "I can also be bound to text!"; 
+//     let y = "I can also be bound to text!";
 // }
-
 
 // 遮蔽过后let x不再是可变的了，是默认不可变的
 // fn main() {
 //     let mut x: i32 = 1;
 //     x = 7;
 //     // 遮蔽且再次绑定
-//     let x = x; 
-
+//     let x = x;
 
 //     let y = 4;
 //     // 遮蔽
-//     let y = "I can also be bound to text!"; 
+//     let y = "I can also be bound to text!";
 // }
-
 
 // 7.使用以下方法来修复编译器输出的 warning
 // fn main() {
-//     let x = 1; 
+//     let x = 1;
 // }
 
 // compiler warning: unused variable: `x`
 
 // 给let x声明是未使用的变量
 // fn main() {
-//     let _x = 1; 
+//     let _x = 1;
 // }
 
 // 打印输出
 // fn main() {
-//     let x = 1; 
+//     let x = 1;
 //     println!("x is {}", x)
 // }
-
 
 // 8.修复下面代码的错误并尽可能少的修改
 // fn main() {
@@ -236,7 +243,6 @@
 //     assert_eq!(y, 2);
 // }
 
-
 // 遮蔽
 // fn main() {
 //     let (_x, y) = (1, 2);
@@ -248,20 +254,19 @@
 
 // 9.解构式赋值
 
-
 // fn main() {
 //     let (x, y);
 //     (x,..) = (3, 4);
 //     [.., y] = [1, 2];
 //     // 填空，让代码工作
 //     assert_eq!([x,y], __);
-// } 
+// }
 
-//填值
-fn main() {
-    let (x, y);
-    (x,..) = (3, 4);
-    [.., y] = [1, 2];
-    // 填空，让代码工作
-    assert_eq!([x,y], [3,2]);
-}
+// //填值
+// fn main() {
+//     let (x, y);
+//     (x,..) = (3, 4);
+//     [.., y] = [1, 2];
+//     // 填空，让代码工作
+//     assert_eq!([x,y], [3,2]);
+// }
