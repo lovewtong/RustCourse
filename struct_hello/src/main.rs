@@ -55,13 +55,29 @@
  struct File {
    name: String,
    data: Vec<u8>,
+
+ }
+ struct User{
+    email: &str,  //没标明生命周期，报错
+    username: &str, //没标明生命周期，报错
+    active: bool,
+    sign_in_count: u64,
  }
 
  fn main() {
    let f1 = File {
-     name: String::from("f1.txt"),
+     name: String::from("f1.txt"),  
      data: Vec::new(),
    };
+
+   let user1 = User{
+      email: "123456@qq.com",
+      username: "jack",
+      active: true,
+      sign_in_count: 24,
+   };
+
+   println!("the user1 is {}",user1.email);
 
    let f1_name = &f1.name;
    let f1_length = &f1.data.len();
