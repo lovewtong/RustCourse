@@ -6,8 +6,9 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-anyhow = "1.0.70"
-clap = { version = "4.1.11", features = ["derive"] }
-request = "0.0.8"
-serde_yaml = "0.9.19"
-tokio = { version = "1.26.0", features = ["full"] }
+anyhow = "1.0.63"
+clap ={ version ="3.2.20", features = ["derive"]}
+reqwest ={ version = "*", default-features = false, features = ["results"]}
+serde_yaml = "0.9.11"
+similar = "2.2.0"
+tokio ={ version = "1.21.0", features = ["full"]}
