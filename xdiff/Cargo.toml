@@ -8,7 +8,7 @@ edition = "2021"
 [dependencies]
 anyhow = "1.0.63"
 clap ={ version ="3.2.20", features = ["derive"]}
-reqwest ={ version = "*", default-features = false, features = ["results"]}
+reqwest = { version = "0.11", features = ["json"] }
 serde_yaml = "0.9.11"
 similar = "2.2.0"
 tokio ={ version = "1.21.0", features = ["full"]}
