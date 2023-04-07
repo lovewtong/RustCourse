@@ -12,7 +12,7 @@ fn main() {
     // 范围表达式采用start..end 形式，它包含下限但不包含上限，所以需要指定1..101 来请求一个1
     // 和100之间的数.另外，我们也可以传递1..=100 ，这是等价的。
     let secret_number = rand::thread_rng().gen_range(1..101);
-
+    yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
     loop {
         println!("The secret number is {}", secret_number);
 
@@ -44,5 +44,6 @@ fn main() {
                 break;
             }
         }
+        
     }
 }
